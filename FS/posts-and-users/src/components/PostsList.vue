@@ -6,17 +6,8 @@
         class="mb-5"
         cols="12"
       >
-
         <v-row justify="center">
-          <a
-            v-for="(eco, i) in posts"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco }}
-          </a>
+          {{ post }}
         </v-row>
       </v-col>
     </v-row>
@@ -25,23 +16,7 @@
 
 <script>
   export default {
-    name: 'HelloWorld',
-    props: ['posts'],
-    data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader',
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify',
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify',
-        },
-      ],
-    }),
+    name: 'PostsList',
+    props: ['posts']
   }
 </script>
