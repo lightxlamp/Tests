@@ -25,10 +25,9 @@
       >50
       </v-btn>
     </v-app-bar>
-
     <v-main>
       <app-pagination/>
-      <posts-list/>
+      <posts-list :posts="posts"/>
       <app-pagination/>
     </v-main>
   </v-app>
@@ -45,9 +44,10 @@ export default {
   },
 
   data: () => ({
-    posts: null, // array of posts
-    users: null, // array of users
-    baseUrl: 'https://jsonplaceholder.typicode.com/', // base request url
+    posts: [], // array of posts
+    users: [], // array of users
+    baseUrl: 'https://jsonplaceholder.typicode.com/', // base request url,
+    requestError: null
   }),
 
   computed: {
@@ -60,6 +60,11 @@ export default {
     } 
   },
 
+  // According to task it is not allowed to use third-party libraries, so I refused from AXIOS 
+  // Fetch - "is not universal", probably it has some issued with old browsers. Upadte: I've checked: 
+  // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch 
+  // please see "browser compatibility" table at the bottom of the page 
+  // So I decided to use XHR
   methods: {
     sendRequest: function(url) {
       return new Promise((resolve, reject) => {
@@ -84,13 +89,9 @@ export default {
     }
   },
 
-  // According to task it is not allowed to use third-party libraries, so I refused from AXIOS 
-  // Fetch - "is not universal", probably it has some issued with old browsers. Upadte: I've checked: 
-  // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch 
-  // please see "browser compatibility" table at the bottom of the page 
-  // So I decided to use XHR
   mounted () {
-    this.sendRequest(this.usersUrl).then(data => console.log(data))
+    this.sendRequest(this.postsUrl).then(data => this.posts = data).catch(err => this.requestError = err)
+    this.sendRequest(this.usersUrl).then(data => this.users = data).catch(err => this.requestError = err)
   }
 };
 </script>

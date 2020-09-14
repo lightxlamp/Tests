@@ -6,19 +6,16 @@
         class="mb-5"
         cols="12"
       >
-        <h2 class="headline font-weight-bold mb-3">
-          Ecosystem
-        </h2>
 
         <v-row justify="center">
           <a
-            v-for="(eco, i) in ecosystem"
+            v-for="(eco, i) in posts"
             :key="i"
             :href="eco.href"
             class="subheading mx-3"
             target="_blank"
           >
-            {{ eco.text }}
+            {{ eco }}
           </a>
         </v-row>
       </v-col>
@@ -29,7 +26,7 @@
 <script>
   export default {
     name: 'HelloWorld',
-
+    props: ['posts'],
     data: () => ({
       ecosystem: [
         {
