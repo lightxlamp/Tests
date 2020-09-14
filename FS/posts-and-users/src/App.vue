@@ -28,23 +28,69 @@
 
     <v-main>
       <app-pagination/>
-      <HelloWorld/>
+      <posts-list/>
+      <app-pagination/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import PostsList from './components/PostsList';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    PostsList,
   },
 
   data: () => ({
-    //
+    posts: null, // array of posts
+    users: null, // array of users
+    baseUrl: 'https://jsonplaceholder.typicode.com/', // base request url
   }),
+
+  computed: {
+    usersUrl: function () {
+      return this.baseUrl + 'users'  // request url for users
+    },
+
+    postsUrl: function () {
+      return this.baseUrl + 'posts' // request url for posts
+    } 
+  },
+
+  methods: {
+    sendRequest: function(url) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', url)
+        xhr.responseType = 'json'
+        xhr.onload = () => {
+          if(xhr.status > 400) {
+            reject(xhr.response)
+          }
+          else {
+            resolve(xhr.response)
+          }
+        }
+
+        xhr.onerror = () => {
+          reject(xhr.response)
+        }
+
+        xhr.send()
+      })
+    }
+  },
+
+  // According to task it is not allowed to use third-party libraries, so I refused from AXIOS 
+  // Fetch - "is not universal", probably it has some issued with old browsers. Upadte: I've checked: 
+  // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch 
+  // please see "browser compatibility" table at the bottom of the page 
+  // So I decided to use XHR
+  mounted () {
+    this.sendRequest(this.usersUrl).then(data => console.log(data))
+  }
 };
 </script>
