@@ -2,9 +2,17 @@
     <v-container>
         <v-row class="text-center">
             <v-col class="mb-4">
-                <h1 class="font-weight-bold mb-3">
-                    previous #1 next
-                </h1>
+                <v-btn text @click="changePage(-1)">
+                    Previous
+                </v-btn> 
+
+                <v-btn text>
+                    #{{pageNumber}}
+                </v-btn>   
+                
+                <v-btn text @click="changePage(1)">
+                    Next
+                </v-btn>  
             </v-col>
         </v-row>
     </v-container>
@@ -12,6 +20,14 @@
 
 <script>
   export default {
-    name: 'AppPagination'
+    name: 'Pagination',
+    props: ['pageNumber'],
+    methods: {
+        changePage(nextOrPrev) {
+            if(this.pageNumber >= 1){
+                this.pageNumber += nextOrPrev;
+            }
+        }
+    }
   }
 </script>

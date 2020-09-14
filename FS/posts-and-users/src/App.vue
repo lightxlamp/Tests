@@ -26,13 +26,13 @@
 
     </v-app-bar>
     <v-main>
-      <app-pagination/>
+      <app-pagination :pageNumber="pageNumber"/>
       <posts-list 
         :posts="posts" 
         :postsPerPage="postsPerPage" 
         :pageNumber="pageNumber" 
       />
-      <app-pagination/>
+      <app-pagination :pageNumber="pageNumber"/>
     </v-main>
   </v-app>
 </template>
