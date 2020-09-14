@@ -6,12 +6,12 @@
       dark
     >
       <div class="d-flex align-center">
-        <span>Всего постов: </span>
+        <span>Number of posts in DB: {{posts.length}} </span>
       </div>
 
       <v-spacer></v-spacer>
 
-      <span class="mr-2">Количество отображаемых на странице постов:</span>
+      <span class="mr-2">Posts per page</span>
       <v-btn
         text
       >10
@@ -27,7 +27,11 @@
     </v-app-bar>
     <v-main>
       <app-pagination/>
-      <posts-list :posts="posts"/>
+      <posts-list 
+        :posts="posts" 
+        :postsPerPage="postsPerPage" 
+        :pageNumber="pageNumber" 
+      />
       <app-pagination/>
     </v-main>
   </v-app>
@@ -47,7 +51,9 @@ export default {
     posts: [], // array of posts
     users: [], // array of users
     baseUrl: 'https://jsonplaceholder.typicode.com/', // base request url,
-    requestError: null
+    requestError: null,
+    postsPerPage: 10,
+    pageNumber: 3
   }),
 
   computed: {
