@@ -12,18 +12,18 @@
       <v-spacer></v-spacer>
 
       <span class="mr-2">Posts per page</span>
-      <v-btn
-        text
-      >10
+      <v-btn text @click="setPostsPerPage(10)">
+        10
       </v-btn> 
-      <v-btn
-        text
-      >25
+
+      <v-btn text @click="setPostsPerPage(25)">
+        25
+      </v-btn>   
+      
+      <v-btn text @click="setPostsPerPage(50)">
+        50
       </v-btn>  
-      <v-btn
-        text
-      >50
-      </v-btn>
+
     </v-app-bar>
     <v-main>
       <app-pagination/>
@@ -53,7 +53,7 @@ export default {
     baseUrl: 'https://jsonplaceholder.typicode.com/', // base request url,
     requestError: null,
     postsPerPage: 10,
-    pageNumber: 3
+    pageNumber: 1
   }),
 
   computed: {
@@ -92,6 +92,14 @@ export default {
 
         xhr.send()
       })
+    },
+
+    /**
+    * Change postsPerPage value
+    * @param  {Number} postsPerPage number of posts to display on a page
+    */
+    setPostsPerPage(postsPerPage) {
+      this.postsPerPage = postsPerPage
     }
   },
 
