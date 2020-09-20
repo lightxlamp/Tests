@@ -135,7 +135,7 @@ export default {
     };
   },
 
-  // watch todos and tutorialVisivility change for localStorage persistence
+  // watch todos and tutorial - visivility change for localStorage persistence
   watch: {
     todos: {
       handler: function (todos) {
