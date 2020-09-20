@@ -266,10 +266,10 @@ a {
   margin-bottom: 1rem;
   border: 2px solid #2b78c2;
   border-radius: 1rem;
-  padding-bottom: 1rem;
   width: 60%;
   position: relative;
-  padding-top: 0.6rem;
+  padding-bottom: 1rem;
+  padding: 0.6rem 2rem 1rem 1rem;
 
   &__btn {
     position: absolute;
