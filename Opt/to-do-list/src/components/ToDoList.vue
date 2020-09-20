@@ -2,10 +2,11 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
 
-    <div class="tutorial" v-if="displayTutorial">
+    <div class="tutorial" v-show="displayTutorial" v-cloak>
       <button class="tutorial__btn" v-on:click="displayTutorial = false">x</button>
       <p class="tutorial__text">{{ tutorialText }}</p>
     </div>
+
     <input
       class="new-todo"
       autofocus
@@ -55,13 +56,38 @@
 
 <script>
 
+const STORAGE_KEY = "test-task-for-opt__to-do-list";
+const STORAGE_KEY_2 = "test-task-for-opt__is-tutorial-visible";
+
+let todoStorage = {
+  fetch: function () {
+    var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    todos.forEach(function (todo, index) {
+      todo.id = index;
+    });
+    todoStorage.uid = todos.length;
+    return todos;
+  },
+  save: function (todos) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+  },
+};
+
+let tutorialStorage = {
+  fetch: function () {
+    let isTutorialVisiblie = JSON.parse(localStorage.getItem(STORAGE_KEY_2) || true);
+    return isTutorialVisiblie;
+  },
+  save: function (isTutorialVisiblie) {
+    localStorage.setItem(STORAGE_KEY_2, JSON.stringify(isTutorialVisiblie));
+  }
+};
+
 // visibility filters
 let filters = {
-
   all: function (todos) {
     return todos;
   },
-
   active: function (todos) {
     return todos.filter(function (todo) {
       return !todo.completed;
@@ -74,23 +100,8 @@ let filters = {
   }
 };
 
-const STORAGE_KEY = "testTaskForOpt";
-let todoStorage = {
-  fetch: function () {
-    var todos = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    todos.forEach(function (todo, index) {
-      todo.id = index;
-    });
-    todoStorage.uid = todos.length;
-    return todos;
-  },
-  save: function (todos) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
-  }
-};
-
 export default {
-  name: 'HelloWorld',
+  name: 'ToDoList',
   props: {
     msg: String,
     tutorialText: String
@@ -99,7 +110,7 @@ export default {
   data: function() {
     return {
       todos: todoStorage.fetch(),
-      displayTutorial: true,
+      displayTutorial: tutorialStorage.fetch(),
       newToDoPlaceHolder: "Что должно быть сделано?",
       markAll: "Пометить все задачи как выполненные",
       newTodo: "",
@@ -108,11 +119,17 @@ export default {
     };
   },
 
-  // watch todos change for localStorage persistence
+  // watch todos and tutorialVisivility change for localStorage persistence
   watch: {
     todos: {
       handler: function (todos) {
         todoStorage.save(todos);
+      },
+      deep: true
+    },
+    displayTutorial: {
+        handler: function (displayTutorial) {
+        tutorialStorage.save(displayTutorial);
       },
       deep: true
     }
@@ -188,6 +205,17 @@ export default {
       this.todos = filters.active(this.todos);
     }
   },
+
+  // custom directive to wait for the DOM to be updated
+  // before focusing on the input field.
+  // http://vuejs.org/guide/custom-directive.html
+  directives: {
+    "todo-focus": function (el, binding) {
+      if (binding.value) {
+        el.focus();
+      }
+    }
+  }
 }
 </script>
 
@@ -221,10 +249,6 @@ a {
   width: 60%;
   position: relative;
   padding-top: 0.6rem;
-}
-
-.tutorial__text {
-
 }
 
 .tutorial__btn {
