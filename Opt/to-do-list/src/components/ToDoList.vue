@@ -1,9 +1,11 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <p class="tutorial">
-      {{tutorialText}}
-    </p>
+
+    <div class="tutorial" v-if="displayTutorial">
+      <button class="tutorial__btn" v-on:click="displayTutorial = false">x</button>
+      <p class="tutorial__text">{{ tutorialText }}</p>
+    </div>
     <input
       class="new-todo"
       autofocus
@@ -97,12 +99,23 @@ export default {
   data: function() {
     return {
       todos: todoStorage.fetch(),
+      displayTutorial: true,
       newToDoPlaceHolder: "Что должно быть сделано?",
       markAll: "Пометить все задачи как выполненные",
       newTodo: "",
       editedTodo: null,
       visibility: "all"
     };
+  },
+
+  // watch todos change for localStorage persistence
+  watch: {
+    todos: {
+      handler: function (todos) {
+        todoStorage.save(todos);
+      },
+      deep: true
+    }
   },
 
   computed: {
@@ -206,11 +219,36 @@ a {
   border-radius: 1rem;
   padding-bottom: 1rem;
   width: 60%;
+  position: relative;
+  padding-top: 0.6rem;
+}
+
+.tutorial__text {
+
+}
+
+.tutorial__btn {
+  position: absolute;
+  right: .5rem;
+  top: .3rem;
+  border: none;
+  background-color:#2b78c2;
+  color: white;
+  border-radius: 50%;
+  line-height: 1rem;
+  border: none; 
+  cursor: pointer; 
+  outline: none; 
 }
 
 .new-todo {
   width: 40%;
   text-align: center;
+  height: 2rem;
+}
+
+.toggle-all {
+  font-size: 0.2rem;
 }
 
 input:focus::placeholder {
