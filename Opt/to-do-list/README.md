@@ -1,24 +1,16 @@
-# to-do-list
+# to-do-list 
 
-## Project setup
+## Установка проекта
 ```
-npm install
+Скачайте архив со страницы: https://github.com/lightxlamp/Tests
+Нажмите на зеленую кнопку "Code"
+В выпадающем меню выберите опцию "Download ZIP"
+По завершении загрузки файла архива - распакуйте его. 
+В терминале укажите путь к распакованной папке, и дальше перейдите в папку "Opt" / "to-do-list"
+Находясь внутри папки выполните в консоли комманду "npm install". (примечание NodeJS должен быть установлен на Вашем компьютере)
+Подождите, пока пакетный менеджер Node скачает все необходимые пакеты для запуска проекта
+По окончании загрузки - выполните в консоли комманду "npm run serve"
+Если у Вас не запущенны другие локальные проекты и порт 8080 не занят, то на странице http://localhost:8080/ будет запущен проект - ToDoList
+Можно приступать к проверке
+Хорошего Вам дня
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
