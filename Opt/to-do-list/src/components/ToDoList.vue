@@ -1,22 +1,24 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <section class="toDoApp">
+    <header class="header">
+      <h1>{{ msg }}</h1>
 
-    <div class="tutorial" v-show="displayTutorial" v-cloak>
-      <button class="tutorial__btn" v-on:click="displayTutorial = false">x</button>
-      <p class="tutorial__text">{{ tutorialText }}</p>
-    </div>
+      <div class="tutorial" v-show="displayTutorial" v-cloak>
+        <button class="tutorial__btn" v-on:click="displayTutorial = false">x</button>
+        <p class="tutorial__text">{{ tutorialText }}</p>
+      </div>
 
-    <input
-      class="new-todo"
-      autofocus
-      autocomplete="off"
-      :placeholder=newToDoPlaceHolder
-      onfocus="1"
-      :onblur=newToDoPlaceHolder
-      v-model="newTodo"
-      @keyup.enter="addTodo"
-    />
+      <input
+        class="new-todo"
+        autofocus
+        autocomplete="off"
+        :placeholder=newToDoPlaceHolder
+        onfocus="1"
+        :onblur=newToDoPlaceHolder
+        v-model="newTodo"
+        @keyup.enter="addTodo"
+      />
+    </header>
 
     <section class="main" v-show="todos.length" v-cloak>
     <input
@@ -26,6 +28,7 @@
       v-model="allDone"
     />
     <label for="toggle-all">{{markAll}}</label>
+    
     <ul class="todo-list">
       <li
         v-for="todo in filteredTodos"
@@ -51,7 +54,7 @@
     </ul>
   </section>
 
-  </div>
+  </section>
 </template>
 
 <script>
@@ -219,7 +222,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 h3 {
   margin: 40px 0 0;
 }
@@ -240,6 +243,11 @@ a {
   width: 60rem;
 }
 
+.todo-list {
+  display: flex;
+  flex-direction: column;
+}
+
 .tutorial {
   margin: auto;
   margin-bottom: 1rem;
@@ -249,20 +257,29 @@ a {
   width: 60%;
   position: relative;
   padding-top: 0.6rem;
+
+  &__btn {
+    position: absolute;
+    right: .5rem;
+    top: .3rem;
+    border: none;
+    background-color:#2b78c2;
+    color: white;
+    border-radius: 50%;
+    line-height: 1rem;
+    border: none; 
+    cursor: pointer; 
+    outline: none; 
+  }
 }
 
-.tutorial__btn {
-  position: absolute;
-  right: .5rem;
-  top: .3rem;
-  border: none;
-  background-color:#2b78c2;
-  color: white;
-  border-radius: 50%;
-  line-height: 1rem;
-  border: none; 
-  cursor: pointer; 
-  outline: none; 
+.completed {
+  color: grey;
+  text-decoration-line: line-through;
+}
+
+.edit {
+  visibility: hidden;
 }
 
 .new-todo {
