@@ -1,18 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" class="logo" src="./assets/_logo.png">
-    <HelloWorld msg="Welcome to TODO App"/>
+    <img alt="Vue logo" class="logo" src="./assets/logo.png">
+    <ToDoList :msg=welcomeText :tutorialText=tutorialText />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ToDoList from './components/ToDoList'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    ToDoList
+  },
+
+  data: function() {
+    return {
+      welcomeText: "Добро пожаловать в TODO лист",
+      tutorialText: `Здесь вы можете добавлять, редактировать и изменять задачи, которые вы перед собой ставите. 
+      Список всех задач сохраняется в локальном хранилище. Так что он будет доступен Вам даже после
+      обновления страницы или полного ее закрытия. Чтобы закрыть эту подсказку - нажмите крестик 
+      в правом верхнем углу. После этого - текст подсказки больше не будет отображаться 
+      при дальнейших посещениях сайта`
+    };
+  },
 }
 </script>
 
