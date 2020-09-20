@@ -21,13 +21,23 @@
     </header>
 
     <section class="main" v-show="todos.length" v-cloak>
+    <div class="toggle-all">
+      <input
+        id="toggle-all__btn"
+        class="toggle-all__btn"
+        type="checkbox"
+        v-model="allDone"
+      />
+      <label for="toggle-all__btn" class="toggle-all__text">{{markAll}}</label>
+    </div>
+
     <input
-      id="toggle-all"
-      class="toggle-all"
+      id="toggle-edit-mode"
+      class="toggle-edit-mode"
       type="checkbox"
-      v-model="allDone"
+      v-model="isEditMode"
     />
-    <label for="toggle-all">{{markAll}}</label>
+    <label for="toggle-edit-mode" class="toggle-all__text">{{toggleEditMode}}</label>
     
     <ul class="todo-list">
       <li
@@ -42,7 +52,8 @@
           <button class="destroy" @click="removeTodo(todo)">X</button>
         </div>
         <input
-          class="edit"
+          class="notEdit"
+          :class="{ edit: isEditMode }"
           type="text"
           v-model="todo.title"
           v-todo-focus="todo == editedTodo"
@@ -115,10 +126,12 @@ export default {
       todos: todoStorage.fetch(),
       displayTutorial: tutorialStorage.fetch(),
       newToDoPlaceHolder: "Что должно быть сделано?",
-      markAll: "Пометить все задачи как выполненные",
+      markAll: "Пометить все задачи как выполненные / Снять метку \"выполнена\" со всех задач",
+      toggleEditMode: "Включить/Выклюить режим редактирования",
       newTodo: "",
       editedTodo: null,
-      visibility: "all"
+      visibility: "all",
+      isEditMode: false
     };
   },
 
@@ -279,6 +292,15 @@ a {
 }
 
 .edit {
+  width: 40%;
+  text-align: center;
+  font-style: italic;
+  color: blue;
+  visibility: visible !important;
+  border: none;
+}
+
+.notEdit {
   visibility: hidden;
 }
 
@@ -289,10 +311,21 @@ a {
 }
 
 .toggle-all {
-  font-size: 0.2rem;
+  &__text {
+    font-size: 0.5rem;
+    color: grey;
+  }
+}
+
+.destroy {
+  margin-left: .5rem;
 }
 
 input:focus::placeholder {
     color: transparent;
+}
+
+textarea:focus, input:focus{
+    outline: none;
 }
 </style>
