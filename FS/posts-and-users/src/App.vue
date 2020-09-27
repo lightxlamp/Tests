@@ -14,7 +14,7 @@
       <span class="mr-2">Posts per page</span>
       <v-btn text @click="setPostsPerPage(10)">
         10
-      </v-btn> 
+      </v-btn>  
 
       <v-btn text @click="setPostsPerPage(25)">
         25
@@ -26,13 +26,13 @@
 
     </v-app-bar>
     <v-main>
-      <app-pagination :pageNumber="pageNumber"/>
+      <app-pagination :pageNumber="pageNumber" :numberOfPages="numberOfPages"/>
       <posts-list 
         :posts="posts" 
         :postsPerPage="postsPerPage" 
         :pageNumber="pageNumber" 
       />
-      <app-pagination :pageNumber="pageNumber"/>
+      <app-pagination :pageNumber="pageNumber" :numberOfPages="numberOfPages"/>
     </v-main>
   </v-app>
 </template>
@@ -63,7 +63,13 @@ export default {
 
     postsUrl: function () {
       return this.baseUrl + 'posts' // request url for posts
-    } 
+    },
+
+    numberOfPages: function() {
+      console.log('this.posts', this.posts);
+      console.log('this.postsPerPage', this.postsPerPage);
+      return this.posts.length / this.postsPerPage
+    }
   },
 
   // According to task it is not allowed to use third-party libraries, so I refused from AXIOS 

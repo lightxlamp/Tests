@@ -40,7 +40,7 @@
   .post {
     text-align: left;
     margin-bottom: 2rem;
-    border: .3rem solid #4b3c39;
+    border: .3rem solid #1976d2;
     padding: 1rem;
     border-radius: 1rem;
     width: 100%;
