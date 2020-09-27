@@ -5,7 +5,7 @@
                 <v-btn text @click="changePage(-1)">
                     Previous
                 </v-btn> 
-                
+
                 <v-btn text
                     v-for="(page, i) in numberOfPages" 
                     :key="i">
@@ -23,11 +23,11 @@
 <script>
   export default {
     name: 'Pagination',
-    props: ['pageNumber', 'numberOfPages'], 
+    props: ['currentPage', 'numberOfPages'], 
     methods: {
         changePage(nextOrPrev) {
-            if(this.pageNumber >= 1){
-                this.pageNumber += nextOrPrev;
+            if(this.currentPage >= 1){
+                this.currentPage += nextOrPrev;
             }
         }
     }

@@ -26,13 +26,13 @@
 
     </v-app-bar>
     <v-main>
-      <app-pagination :pageNumber="pageNumber" :numberOfPages="numberOfPages"/>
+      <app-pagination :currentPage="currentPage" :numberOfPages="numberOfPages"/>
       <posts-list 
         :posts="posts" 
         :postsPerPage="postsPerPage" 
-        :pageNumber="pageNumber" 
+        :currentPage="currentPage" 
       />
-      <app-pagination :pageNumber="pageNumber" :numberOfPages="numberOfPages"/>
+      <app-pagination :currentPage="currentPage" :numberOfPages="numberOfPages"/>
     </v-main>
   </v-app>
 </template>
@@ -53,7 +53,7 @@ export default {
     baseUrl: 'https://jsonplaceholder.typicode.com/', // base request url,
     requestError: null,
     postsPerPage: 10,
-    pageNumber: 1
+    currentPage: 1
   }),
 
   computed: {
@@ -66,8 +66,6 @@ export default {
     },
 
     numberOfPages: function() {
-      console.log('this.posts', this.posts);
-      console.log('this.postsPerPage', this.postsPerPage);
       return this.posts.length / this.postsPerPage
     }
   },
