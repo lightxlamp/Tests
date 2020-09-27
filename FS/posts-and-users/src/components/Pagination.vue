@@ -8,7 +8,9 @@
 
                 <v-btn text
                     v-for="(page, i) in numberOfPages" 
-                    :key="i">
+                    :key="i"
+                    :class="{ activePage: i === currentPage - 1 }"   
+                >
                     {{page}}
                 </v-btn>
                 
@@ -33,3 +35,10 @@
     }
   }
 </script>
+
+<style scoped>
+    .activePage {
+        background-color: #1976d2;
+        color: white;
+    }
+</style>
