@@ -26,10 +26,13 @@
   export default {
     name: 'Pagination',
     props: ['currentPage', 'numberOfPages'], 
+    data: () => ({
+        selectedPage: this.currentPage
+    }),
     methods: {
         changePage(nextOrPrev) {
-            if(this.currentPage >= 1){
-                this.currentPage += nextOrPrev;
+            if(this.currentPage >= 1) {
+                this.$emit("update-current-page", this.selectedPage += nextOrPrev);
             }
         }
     }

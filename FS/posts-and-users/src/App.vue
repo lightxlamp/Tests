@@ -26,13 +26,24 @@
 
     </v-app-bar>
     <v-main>
-      <app-pagination :currentPage="currentPage" :numberOfPages="numberOfPages"/>
+
+      <app-pagination 
+        :currentPage="currentPage" 
+        :numberOfPages="numberOfPages" 
+        @update-current-page="onUpdatePropPageSelected"
+      />
+
       <posts-list 
         :posts="posts" 
         :postsPerPage="postsPerPage" 
         :currentPage="currentPage" 
       />
-      <app-pagination :currentPage="currentPage" :numberOfPages="numberOfPages"/>
+
+      <app-pagination 
+        :currentPage="currentPage" 
+        :numberOfPages="numberOfPages" 
+        @update-current-page="onUpdatePropPageSelected"
+      />
     </v-main>
   </v-app>
 </template>
