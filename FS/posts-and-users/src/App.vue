@@ -34,9 +34,7 @@
       />
 
       <posts-list 
-        :posts="posts" 
-        :postsPerPage="postsPerPage" 
-        :currentPage="currentPage" 
+        :postsToDisplay="postsToDisplay" 
       />
 
       <app-pagination 
@@ -78,6 +76,15 @@ export default {
 
     numberOfPages: function() {
       return this.posts.length / this.postsPerPage
+    },
+
+    postsToDisplay: function () {
+      if(this.currentPage === 1) {
+        return this.posts.slice(0, this.postsPerPage);
+      }
+      else {
+        return this.posts.slice(this.currentPage * this.postsPerPage, this.currentPage * this.postsPerPage + this.postsPerPage);
+      }
     }
   },
 

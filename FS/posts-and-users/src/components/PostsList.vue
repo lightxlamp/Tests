@@ -22,17 +22,7 @@
 <script>
   export default {
     name: 'PostsList',
-    props: ['posts', 'postsPerPage', 'currentPage'],
-    computed: {
-      postsToDisplay: function () {
-        if(this.currentPage === 1) {
-          return this.posts.slice(0, this.postsPerPage);
-        }
-        else {
-          return this.posts.slice(this.currentPage * this.postsPerPage, this.currentPage * this.postsPerPage + this.postsPerPage);
-        }
-      }
-    } 
+    props: ['postsToDisplay'],
   }
 </script>
 
