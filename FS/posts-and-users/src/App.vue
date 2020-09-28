@@ -122,6 +122,10 @@ export default {
     */
     setPostsPerPage(postsPerPage) {
       this.postsPerPage = postsPerPage
+    },
+  
+    onUpdatePropPageSelected (newPage) {
+      this.currentPage = newPage
     }
   },
 
